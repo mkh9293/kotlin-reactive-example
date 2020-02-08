@@ -9,14 +9,6 @@ import java.util.concurrent.ConcurrentHashMap
 
 @Component
 class CustomerServiceImpl : CustomerService {
-    companion object {
-        val initialCustomers = arrayOf(Customer(1, "Kotlin", Telephone("+44", "123465"))
-                , Customer(2, "Spring")
-                , Customer(3, "Microservice", Telephone("+44", "123465")))
-    }
-
-    val customers = ConcurrentHashMap<Int, Customer>(initialCustomers.associateBy(Customer::id))
-
     override fun getCustomer(id: Int) = customers[id]?.toMono() ?: Mono.empty()
 
     override fun createCustomer(customer: Mono<Customer>) =
