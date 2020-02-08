@@ -1,25 +1,53 @@
 package com.micreservices.component
 
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import reactor.core.publisher.Mono
 
 @RestController
 class CustomerController(private val customerService : CustomerService ) {
 
-    @RequestMapping(path= ["/customer/{id}"], method=arrayOf(RequestMethod.GET))
-    fun getCustomer(@PathVariable id : Int) = customerService.getCustomer(id)
+    @GetMapping("/customer/{id}")
+    fun getCustomer(@PathVariable id : Int) : ResponseEntity<Mono<Customer>> {
+        val customer = customerService.getCustomer(id)
+        return ResponseEntity(customer, HttpStatus.OK)
+    }
 
     @RequestMapping(path= ["/customers"], method= arrayOf(RequestMethod.GET))
     fun getCustomers(@RequestParam(required = false, defaultValue = "") nameFilter : String) =
             customerService.searchCustomers(nameFilter)
 
-    @RequestMapping(path= ["/customer"], method=arrayOf(RequestMethod.POST))
-    fun createCustomer(@RequestBody customer: Customer) { customerService.createCustomer(customer) }
+    @PostMapping("/customer")
+    fun createCustomer(@RequestBody customer: Mono<Customer>) =
+        ResponseEntity(customerService.createCustomer(customer), HttpStatus.CREATED)
 
-    @RequestMapping(path= ["/customer/{id}"], method=arrayOf(RequestMethod.DELETE))
-    fun deleteCustomer(@PathVariable id : Int) = customerService.deleteCustomer(id)
 
-    @RequestMapping(path= ["/customer/{id}"], method=arrayOf(RequestMethod.PUT))
-    fun updateCustomer(@PathVariable id : Int, @RequestBody customer: Customer) {
-        customerService.updateCustomer(id, customer)
+    @DeleteMapping("/customer/{id}")
+    fun deleteCustomer(@PathVariable id : Int) : ResponseEntity<Unit> {
+        var status = HttpStatus.NOT_FOUND
+        if(customerService.getCustomer(id) != null) {
+            customerService.deleteCustomer(id)
+            status = HttpStatus.OK
+        }
+
+        return ResponseEntity(Unit, status)
     }
+
+    @PutMapping("/customer/{id}")
+    fun updateCustomer(@PathVariable id : Int, @RequestBody customer: Customer) : ResponseEntity<Unit> {
+        var status = HttpStatus.NOT_FOUND
+        if(customerService.getCustomer(id) != null) {
+            customerService.updateCustomer(id, customer)
+            status = HttpStatus.ACCEPTED
+        }
+        return ResponseEntity(Unit, status)
+    }
+
+    @GetMapping("/json")
+    fun getJson() = ComplexObject(SimpleObject("more", "complex"))
 }
+
+data class SimpleObject (val name : String, val zone : String)
+
+data class ComplexObject(val object1 : SimpleObject? = null)

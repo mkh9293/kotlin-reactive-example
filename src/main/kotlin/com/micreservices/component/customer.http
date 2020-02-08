@@ -5,10 +5,10 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
-POST http://localhost:8080/customer
+POST http://localhost:8080/functional/customer
 Content-Type: application/json
 
-{ "id" : 4, "name" : "New Customer" }
+{ "id" : 18, "name" : "New Customer", "telephone" :  {"countryCode" :  "+44", "telephoneNumber" :  "1234"}}
 
 ###
 
@@ -21,5 +21,13 @@ Cache-Control: no-cache
 Content-Type: application/json
 
 { "id" : 4, "name" : "Update Customer" }
+
+###
+
+
+GET http://localhost:8080/customer/12
+Content-Type: application/json
+
+{ "id" : 4, "name" : "New Customer" }
 
 ###
