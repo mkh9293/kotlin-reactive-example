@@ -1,5 +1,6 @@
-package com.micreservices.component
+package com.micreservices.component.router
 
+import com.micreservices.component.handler.CustomerHandler
 import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.server.RouterFunction
@@ -14,6 +15,7 @@ class CustomerRouter(private val customerHandler: CustomerHandler) {
             "/customer".nest {
                 GET("/{id}", customerHandler::get)
                 POST("/", customerHandler::create)
+                DELETE("/{id}", customerHandler::delete)
             }
             "/customers".nest {
                 GET("/", customerHandler::search)

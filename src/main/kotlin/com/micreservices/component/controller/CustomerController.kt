@@ -1,12 +1,14 @@
-package com.micreservices.component
+package com.micreservices.component.controller
 
+import com.micreservices.component.dto.Customer
+import com.micreservices.component.service.CustomerService
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Mono
 
 @RestController
-class CustomerController(private val customerService : CustomerService ) {
+class CustomerController(private val customerService : CustomerService) {
 
     @GetMapping("/customer/{id}")
     fun getCustomer(@PathVariable id : Int) : ResponseEntity<Mono<Customer>> {
@@ -34,15 +36,15 @@ class CustomerController(private val customerService : CustomerService ) {
         return ResponseEntity(Unit, status)
     }
 
-    @PutMapping("/customer/{id}")
-    fun updateCustomer(@PathVariable id : Int, @RequestBody customer: Customer) : ResponseEntity<Unit> {
-        var status = HttpStatus.NOT_FOUND
-        if(customerService.getCustomer(id) != null) {
-            customerService.updateCustomer(id, customer)
-            status = HttpStatus.ACCEPTED
-        }
-        return ResponseEntity(Unit, status)
-    }
+//    @PutMapping("/customer/{id}")
+//    fun updateCustomer(@PathVariable id : Int, @RequestBody customer: Customer) : ResponseEntity<Unit> {
+//        var status = HttpStatus.NOT_FOUND
+//        if(customerService.getCustomer(id) != null) {
+//            customerService.updateCustomer(id, customer)
+//            status = HttpStatus.ACCEPTED
+//        }
+//        return ResponseEntity(Unit, status)
+//    }
 
     @GetMapping("/json")
     fun getJson() = ComplexObject(SimpleObject("more", "complex"))

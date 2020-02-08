@@ -1,4 +1,4 @@
-package com.micreservices.component
+package com.micreservices.component.error
 
 import org.springframework.web.bind.annotation.ControllerAdvice
 //import javax.servlet.http.HttpServletRequest

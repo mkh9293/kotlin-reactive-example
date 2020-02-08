@@ -12,7 +12,7 @@ Content-Type: application/json
 
 ###
 
-DELETE http://localhost:8080/customer/4
+DELETE http://localhost:8080/functional/customer/18
 
 ###
 

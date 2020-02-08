@@ -1,4 +1,4 @@
-package com.micreservices.component
+package com.micreservices.component.dto
 
 import org.springframework.data.mongodb.core.mapping.Document
 

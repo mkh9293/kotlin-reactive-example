@@ -1,4 +1,4 @@
-package com.micreservices.component
+package com.micreservices.component.error.exception
 
 import java.lang.Exception
 

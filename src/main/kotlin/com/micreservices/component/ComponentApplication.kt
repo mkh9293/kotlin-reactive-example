@@ -1,5 +1,8 @@
 package com.micreservices.component
 
+import com.micreservices.component.service.AdvanceService
+import com.micreservices.component.service.ExampleService
+import com.micreservices.component.service.ServiceInterface
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression

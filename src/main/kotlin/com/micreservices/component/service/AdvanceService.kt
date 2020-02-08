@@ -1,5 +1,6 @@
-package com.micreservices.component
+package com.micreservices.component.service
 
+import com.micreservices.component.service.ServiceInterface
 import org.springframework.beans.factory.annotation.Value
 
 class AdvanceService : ServiceInterface {
