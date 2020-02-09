@@ -1,0 +1,8 @@
+encrypt:
+  key: "this_is_a_secret"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh

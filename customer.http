@@ -5,6 +5,10 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
+POST http://localhost:8081/actuator/refresh
+
+###
+
 POST http://localhost:8080/functional/customer
 Content-Type: application/json
 
